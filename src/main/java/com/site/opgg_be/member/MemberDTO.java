@@ -6,9 +6,13 @@ package com.site.opgg_be.member;
 //        password VARCHAR(250) NOT NULL
 //        );
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO {
     private String id;
     private String name;

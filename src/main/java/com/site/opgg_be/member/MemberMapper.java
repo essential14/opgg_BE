@@ -10,9 +10,10 @@ public interface MemberMapper {
     public MemberDTO login(MemberDTO dto);
 
     @Insert("insert into member values (#{id}, #{name},#{birthday},#{password})")
-    public int join (MemberDTO dto);
+    public int join (MemberDTO member);
 
-
+    @Select("select count(*) from member where id=#{id}")
+    public int idcheck(MemberDTO dto);
 
 
 }

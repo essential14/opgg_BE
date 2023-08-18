@@ -1,11 +1,11 @@
 package com.site.opgg_be.member;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class MemberController {
     private MemberService memberService;
     public MemberController(MemberService memberService) {
@@ -14,12 +14,18 @@ public class MemberController {
     @PostMapping("/page/login")
     public MemberDTO login(@RequestBody MemberDTO dto){
         MemberDTO tmp = memberService.login(dto);
+        System.out.println("tmp : " + tmp);
         return tmp;
     }
     @PostMapping("/page/join")
-    public int join (@RequestBody MemberDTO member){
-        int tmp = memberService.join(member);
+    public int join (@RequestBody MemberDTO dto){
+        int tmp = memberService.join(dto);
         return tmp;
     }
 
+    @PostMapping("/page/idcheck")
+    public int idcheck(@RequestBody MemberDTO dto){
+        int tmp = memberService.idcheck(dto);
+        return tmp;
+    }
 }

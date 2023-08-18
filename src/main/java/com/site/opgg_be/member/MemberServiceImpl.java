@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
     private MemberMapper mapper;
 
-    public MemberServiceImpl(MemberMapper mapper) {
+    public MemberServiceImpl(MemberMapper mapper)
+    {
         this.mapper = mapper;
     }
 
@@ -22,4 +23,9 @@ public class MemberServiceImpl implements MemberService {
         return res;
     }
 
+    @Override
+    public int idcheck(MemberDTO dto) {
+        int res = mapper.idcheck(dto);
+        return res;
+    }
 }
