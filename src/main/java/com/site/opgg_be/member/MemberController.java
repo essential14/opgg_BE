@@ -14,8 +14,9 @@ public class MemberController {
     @PostMapping("/page/login")
     public MemberDTO login(@RequestBody MemberDTO dto){
         MemberDTO tmp = memberService.login(dto);
-        System.out.println("tmp : " + tmp);
+        System.out.println("tmp :" + tmp);
         return tmp;
+
     }
     @PostMapping("/page/join")
     public int join (@RequestBody MemberDTO dto){

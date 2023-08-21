@@ -1,4 +1,4 @@
-package com.site.opgg_be.file;
+package com.site.opgg_be.board;
 // CREATE TABLE files (
 // `fno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 // `bno` INT,
@@ -6,5 +6,5 @@ package com.site.opgg_be.file;
 // `org_file` VARCHAR(100) NOT NULL,
 // FOREIGN KEY (bno) REFERENCES board(bno) ON DELETE CASCADE
 // );
-public class fileDTO {
+public class FileDTO {
 }
