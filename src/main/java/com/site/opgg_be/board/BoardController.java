@@ -2,6 +2,7 @@ package com.site.opgg_be.board;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +34,8 @@ public class BoardController {
         boardService.insertBoard(dto);
     }
 
-    @GetMapping("/board/detail")
-    public BoardFileDTO getBoardDetail(int bno) {
+    @GetMapping("/board/{bno}")
+    public BoardFileDTO getBoardDetail(@PathVariable int bno) {
         BoardFileDTO boardFile = boardService.getBoardDetail(bno);
         return boardFile;
     }

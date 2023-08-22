@@ -2,6 +2,7 @@ package com.site.opgg_be.board;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 // CREATE TABLE files (
 // `fno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 // `bno` INT,
