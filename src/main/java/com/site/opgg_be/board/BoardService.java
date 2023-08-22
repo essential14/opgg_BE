@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface BoardService {
 
-    public  List<BoardDTO> getBoardList();
+    public void insertBoard(BoardFileDTO dto);
+    public List<BoardFileDTO> getBoardList();
+    public BoardFileDTO getBoardDetail(int bno);
 
-//  public BoardDTO getBoardDetail(BoardDTO dto);
-//  public BoardDTO insertBoard(BoardDTO dto);
 }
