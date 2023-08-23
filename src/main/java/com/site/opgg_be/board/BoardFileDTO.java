@@ -14,7 +14,7 @@ public class BoardFileDTO {
     private int viewcount;
     private String board_date;
     private int fno;
-    private MultipartFile[] org_file;
+    private String org_file;
     private String stored_file;
 
     public BoardEntity toBoard() { // BoardEntity 에 Data 넣기
@@ -29,12 +29,12 @@ public class BoardFileDTO {
     }
 
     public FileEntity toFile() { // FileEntity 에 Data 넣기
-        FileEntity file = new FileEntity();
-        file.setFno(this.getFno());
-        file.setBno(this.getBno());
-        file.setOrg_file(this.getOrg_file());
-        file.setStored_file(this.getStored_file());
-        return file;
+        FileEntity files = new FileEntity();
+        files.setFno(this.getFno());
+        files.setBno(this.getBno());
+        files.setOrg_file(this.getOrg_file());
+        files.setStored_file(this.getStored_file());
+        return files;
     }
 
     public void fromBoard(BoardEntity board) { // BoardEntity 에서 Data 꺼내기
@@ -47,11 +47,11 @@ public class BoardFileDTO {
 
     }
 
-    public void fromFile(FileEntity file) { // FileEntity 에서 Data 꺼내기
-        this.setFno(file.getFno());
-        this.setBno(file.getBno());
-        this.setOrg_file(file.getOrg_file());
-        this.setStored_file(file.getStored_file());
+    public void fromFile(FileEntity files) { // FileEntity 에서 Data 꺼내기
+        this.setFno(files.getFno());
+        this.setBno(files.getBno());
+        this.setOrg_file(files.getOrg_file());
+        this.setStored_file(files.getStored_file());
 
     }
 

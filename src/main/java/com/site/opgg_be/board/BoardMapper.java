@@ -16,8 +16,8 @@ public interface BoardMapper {
     @Insert("INSERT INTO board (bno,title, id, content, viewcount, board_date) VALUES (null, #{title}, #{id}, #{content}, #{viewcount}, NOW())")
     public void insertBoard(BoardEntity board);
     
-    @Insert("INSERT INTO files (bno, org_file, stored_file) VALUES (#{bno}, #{orgFile}, #{storedFile})")
-    public void insertFile(FileEntity file);
+    @Insert("INSERT INTO files (fno, org_file, stored_file) VALUES (null, #{org_file}, #{stored_file})")
+    public void insertFile(FileEntity files);
 
     @Select("select * from board where bno=#{bno}")
     BoardEntity getBoard(int bno);

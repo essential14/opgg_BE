@@ -20,5 +20,5 @@ public class FileEntity {
     private int fno;
     private int bno;
     private String stored_file;
-    private MultipartFile[] org_file;
+    private String org_file;
 }

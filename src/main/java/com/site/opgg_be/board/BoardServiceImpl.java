@@ -15,6 +15,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Value("${spring.servlet.multipart.location}") // 설정 파일 정보 읽어올 때 사용
     String uploadDir;
+    
     private final BoardMapper mapper;
 
     public BoardServiceImpl(BoardMapper mapper) {
@@ -26,20 +27,27 @@ public class BoardServiceImpl implements BoardService {
         return mapper.getBoardList();
     }
 
+
+
     @Override
-    public void insertBoard(BoardFileDTO dto) throws IOException {
+    public void insertBoard(BoardFileDTO dto, MultipartFile[] uploadfiles) throws IOException {
         BoardEntity board = dto.toBoard();
         mapper.insertBoard(board);
-
-        MultipartFile[] org_file = dto.getOrg_file();
-        if (org_file.length != 0) {
-            for (MultipartFile file : org_file) {
+        
+        if (uploadfiles != null && uploadfiles.length > 0) {
+            for (MultipartFile file : uploadfiles) {
                 if (!file.isEmpty()) {
-                    File stored_file = new File(UUID.randomUUID().toString().replaceAll("-", "") + ".jpg");
-                    file.transferTo(stored_file); // 업로드 시켜줌
+                    String originalFilename = file.getOriginalFilename();
+                    String storedFilename = (UUID.randomUUID().toString().replaceAll("-", "") + ".jpg");
+                    File storedFile = new File(storedFilename);
+                    file.transferTo(storedFile);
 
-
-
+                    dto.setOrg_file(originalFilename);
+                    
+                    FileEntity files = dto.toFile();
+                    files.setOrg_file(originalFilename); // 원본 파일 이름
+                    files.setStored_file(storedFilename); // 저장된 파일 이름
+                    mapper.insertFile(files); 
                 }
             }
         }
@@ -48,12 +56,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardFileDTO getBoardDetail(int bno) {
         BoardEntity board = mapper.getBoard(bno);
-        FileEntity file = mapper.getFile(bno);
+        FileEntity files = mapper.getFile(bno);
         mapper.updateViewCount(bno);
 
         BoardFileDTO boardFile = new BoardFileDTO();
         boardFile.fromBoard(board);
-        boardFile.fromFile(file);
+        boardFile.fromFile(files);
 
         return boardFile;
     }

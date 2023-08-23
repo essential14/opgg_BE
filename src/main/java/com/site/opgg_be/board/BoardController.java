@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
@@ -23,8 +23,8 @@ public class BoardController {
 
 
     @PostMapping("/board/write")
-    public void insertBoard(@ModelAttribute BoardFileDTO dto) throws IOException { // 한 객체로 formData 처리 하려면 Model 써야 함
-        boardService.insertBoard(dto);
+    public void insertBoard(BoardFileDTO dto, @RequestPart("uploadfiles") MultipartFile[] uploadfiles) throws IOException {
+    	boardService.insertBoard(dto, uploadfiles);
     }
 
     @GetMapping("/board/list")
