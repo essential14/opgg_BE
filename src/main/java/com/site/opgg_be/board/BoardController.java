@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
@@ -19,9 +21,11 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @Value("${spring.servlet.multipart.location}") // 설정 파일 정보 읽어올 때 사용
-    String uploadDir;
 
+    @PostMapping("/board/write")
+    public void insertBoard(@ModelAttribute BoardFileDTO dto) throws IOException { // 한 객체로 formData 처리 하려면 Model 써야 함
+        boardService.insertBoard(dto);
+    }
 
     @GetMapping("/board/list")
     public List<BoardFileDTO> getBoardList(){
@@ -29,10 +33,6 @@ public class BoardController {
         return boardlist;
     }
 
-    @PostMapping("/board/write")
-    public void insertBoard(BoardFileDTO dto) throws IOException {
-        boardService.insertBoard(dto);
-    }
 
     @GetMapping("/board/{bno}")
     public BoardFileDTO getBoardDetail(@PathVariable int bno) {
