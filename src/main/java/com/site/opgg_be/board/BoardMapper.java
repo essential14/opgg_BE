@@ -23,6 +23,6 @@ public interface BoardMapper {
     @Select("select * from files where bno=#{bno}")
     FileEntity getFile(int bno);
 
-    @Update("Update * from viewcount where bno=#{bno}")
+    @Update("update board set viewcount=viewcount+1 where bno=#{bno}")
     void updateViewCount(int bno);
 }
