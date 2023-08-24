@@ -17,8 +17,8 @@ public interface BoardMapper {
     @Insert("INSERT INTO board (fno, title, id, content, viewcount, created_date, updated_date) VALUES (#{fno}, #{title}, #{id}, #{content}, #{viewcount}, NOW(),NOW())")
     public void insertBoard(BoardEntity board);
 
-    @Update("update board set title=#{title}, content=#{content}, updated_date=#{updated_date} where bno=#{bno}")
-    public void updateBoard(BoardEntity files);
+    @Update("update board set title=#{title}, content=#{content}, updated_date=NOW() where bno=#{bno}")
+    public void updateBoard(BoardEntity board);
 
     @Update("update files set org_file=#{org_file},stored_file=#{stored_file} where fno=#{fno}")
     public void updateFile(FileEntity files);

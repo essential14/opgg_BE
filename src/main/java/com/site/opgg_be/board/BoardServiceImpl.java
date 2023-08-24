@@ -22,12 +22,13 @@ public class BoardServiceImpl implements BoardService {
         this.mapper = mapper;
     }
 
+    
+    
+    
     @Override
     public List<BoardFileDTO> getBoardList() {
         return mapper.getBoardList();
     }
-
-
 
     @Override
     public void insertBoard(BoardFileDTO dto, MultipartFile[] uploadfiles) throws IOException {
@@ -62,30 +63,29 @@ public class BoardServiceImpl implements BoardService {
         if (updatefiles != null && updatefiles.length > 0) {
             for (MultipartFile file : updatefiles) {
                 if (!file.isEmpty()) {
+
                     String originalFilename = file.getOriginalFilename();
-                    String storedFilename = (UUID.randomUUID().toString().replaceAll("-", "") + ".jpg");
+                    String storedFilename = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
                     File storedFile = new File(storedFilename);
                     file.transferTo(storedFile);
 
                     FileEntity files = dto.toFile();
                     files.setOrg_file(originalFilename); // 원본 파일 이름
                     files.setStored_file(storedFilename); // 저장된 파일 이름
-                    mapper.insertFile(files); // 여기서 fno 값이 자동으로 설정
-
-                    int fno = files.getFno(); // 새롭게 생성된 fno 값을 가져오기
+                    mapper.updateFile(files); // 파일 정보 업데이트
+                    
                     BoardEntity board = dto.toBoard();
-                    board.setFno(fno);
-                    mapper.insertBoard(board);
+                    board.setFno(dto.getFno());
+                    mapper.updateBoard(board);
                     return;
                 }
-            }
+            } 
         }
-        int fno = 0;
+        int fno = 0; 
         BoardEntity board = dto.toBoard();
         board.setFno(fno);
-        mapper.insertBoard(board);
+        mapper.updateBoard(board);
     }
-
 
     @Override
     public BoardFileDTO getBoardDetail(int bno) {

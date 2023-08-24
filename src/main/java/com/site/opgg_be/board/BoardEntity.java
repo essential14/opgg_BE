@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //  CREATE TABLE board (
-//  `bno` INT NOT NULL AUTO_INCREMENT, // 게시글 번호
-//  `title` VARCHAR(30) NOT NULL, // 제목
-//  `id` VARCHAR(30) NOT NULL, // 글쓴이
-//  `content` VARCHAR(5000) NOT NULL, // 내용
-//  `viewcount` INT NOT NULL, // 조회수
-//  `created_date` TIMESTAMP NOT NULL, // 작성일
+//  `bno` INT NOT NULL AUTO_INCREMENT, 
+// 	`fno` INT NOT NULL,
+//  `title` VARCHAR(30) NOT NULL, 
+//  `id` VARCHAR(30) NOT NULL, 
+//  `content` VARCHAR(5000) NOT NULL, 
+//  `viewcount` INT NOT NULL,
+//  `created_date` TIMESTAMP NOT NULL, 
+//  `updated_date` TIMESTAMP
 //   PRIMARY KEY (`bno`));
 @Data
 @AllArgsConstructor

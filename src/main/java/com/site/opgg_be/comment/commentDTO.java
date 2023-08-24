@@ -6,8 +6,7 @@ package com.site.opgg_be.comment;
 //    content VARCHAR(4000) NOT NULL,
 //    writer VARCHAR(30),
 //    comment_date TIMESTAMP NOT NULL DEFAULT NOW(),
-//    depth INT NOT NULL,
-//    FOREIGN KEY (bno) REFERENCES board(bno) ON DELETE CASCADE
+//    depth INT NOT NULL
 //);
 public class commentDTO {
 }

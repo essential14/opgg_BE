@@ -29,7 +29,7 @@ public class BoardController {
 
     @PostMapping("/board/update")
     public void updateBoard(BoardFileDTO dto, @RequestPart(name = "updatefiles", required = false) MultipartFile[] updatefiles ) throws IOException {
-        boardService.insertBoard(dto, updatefiles);
+        boardService.updateBoard(dto, updatefiles);
     }
 
     @GetMapping("/board/list")
