@@ -10,18 +10,22 @@ import lombok.NoArgsConstructor;
 //  `id` VARCHAR(30) NOT NULL, // 글쓴이
 //  `content` VARCHAR(5000) NOT NULL, // 내용
 //  `viewcount` INT NOT NULL, // 조회수
-//  `board_date` TIMESTAMP NOT NULL, // 작성일
+//  `created_date` TIMESTAMP NOT NULL, // 작성일
 //   PRIMARY KEY (`bno`));
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardEntity {
+
     private int bno;
+    private int fno;
     private String title;
     private String id;
     private String content;
     private int viewcount;
-    private String board_date;
+    private String created_date;
+    private String updated_date;
+
 
 
 }

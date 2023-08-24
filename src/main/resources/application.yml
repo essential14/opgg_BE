@@ -3,7 +3,7 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 200MB
-      location: C:\\Project\\Vue_Source\\public
+      location: C:\\Project\\Vue_Source\\opgg_FE\\public\\images
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/opgg?serverTimezone=Asia/Seoul

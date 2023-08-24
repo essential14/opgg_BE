@@ -23,8 +23,13 @@ public class BoardController {
 
 
     @PostMapping("/board/write")
-    public void insertBoard(BoardFileDTO dto, @RequestPart("uploadfiles") MultipartFile[] uploadfiles) throws IOException {
-    	boardService.insertBoard(dto, uploadfiles);
+    public void insertBoard(BoardFileDTO dto, @RequestPart(name = "uploadfiles", required = false) MultipartFile[] uploadfiles ) throws IOException {
+        boardService.insertBoard(dto, uploadfiles);
+    }
+
+    @PostMapping("/board/update")
+    public void updateBoard(BoardFileDTO dto, @RequestPart(name = "updatefiles", required = false) MultipartFile[] updatefiles ) throws IOException {
+        boardService.insertBoard(dto, updatefiles);
     }
 
     @GetMapping("/board/list")
