@@ -60,31 +60,41 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void updateBoard(BoardFileDTO dto, MultipartFile[] updatefiles) throws IOException {
-        if (updatefiles != null && updatefiles.length > 0) {
-            for (MultipartFile file : updatefiles) {
-                if (!file.isEmpty()) {
 
-                    String originalFilename = file.getOriginalFilename();
-                    String storedFilename = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
-                    File storedFile = new File(storedFilename);
-                    file.transferTo(storedFile);
-
-                    FileEntity files = dto.toFile();
-                    files.setOrg_file(originalFilename); // 원본 파일 이름
-                    files.setStored_file(storedFilename); // 저장된 파일 이름
-                    mapper.updateFile(files); // 파일 정보 업데이트
-                    
-                    BoardEntity board = dto.toBoard();
-                    board.setFno(dto.getFno());
-                    mapper.updateBoard(board);
-                    return;
-                }
-            } 
+        FileEntity oldFileData = mapper.getFile(dto.getBno());
+        if (oldFileData != null) {
+            File oldFile = new File(uploadDir + "\\" +oldFileData.getStored_file());
+            System.out.println("oldFile" + oldFile);
+            if (oldFile.exists()) {
+                oldFile.delete();
+            }
         }
-        int fno = 0; 
-        BoardEntity board = dto.toBoard();
-        board.setFno(fno);
-        mapper.updateBoard(board);
+            if (updatefiles != null && updatefiles.length > 0) {
+                for (MultipartFile file : updatefiles) {
+                    if (!file.isEmpty()) {
+
+                        String originalFilename = file.getOriginalFilename();
+                        String storedFilename = UUID.randomUUID().toString().replaceAll("-", "") + ".jpg";
+                        File storedFile = new File(storedFilename);
+                        file.transferTo(storedFile);
+
+                        FileEntity files = dto.toFile();
+                        files.setFno(dto.getBno());
+                        files.setOrg_file(originalFilename); // 원본 파일 이름
+                        files.setStored_file(storedFilename); // 저장된 파일 이름
+                        mapper.updateFile(files); // 파일 정보 업데이트
+
+                        BoardEntity board = dto.toBoard();
+                        board.setFno(dto.getFno());
+                        mapper.updateBoard(board);
+                        return;
+                    }
+                }
+            }
+            int fno = 0;
+            BoardEntity board = dto.toBoard();
+            board.setFno(fno);
+            mapper.updateBoard(board);
     }
 
     @Override
