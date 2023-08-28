@@ -14,7 +14,6 @@ public class MemberController {
     @PostMapping("/page/login")
     public MemberDTO login(@RequestBody MemberDTO dto){
         MemberDTO tmp = memberService.login(dto);
-        System.out.println("tmp :" + tmp);
         return tmp;
 
     }

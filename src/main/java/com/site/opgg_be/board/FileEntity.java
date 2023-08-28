@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 // `fno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 // `stored_file`  VARChar(200) NOT NULL,
 // `org_file` VARCHAR(200) NOT NULL,
+// `group_file` INT
 // );
 
 
@@ -18,4 +19,5 @@ public class FileEntity {
     private int fno;
     private String stored_file;
     private String org_file;
+    private int group_file;
 }

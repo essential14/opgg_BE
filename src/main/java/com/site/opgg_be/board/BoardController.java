@@ -28,8 +28,13 @@ public class BoardController {
     }
 
     @PostMapping("/board/update")
-    public void updateBoard(BoardFileDTO dto, @RequestPart(name = "updatefiles", required = false) MultipartFile[] updatefiles ) throws IOException {
+    public void updateBoard(BoardFileDTO dto, @RequestPart(name = "updatefiles", required = false) MultipartFile[] updatefiles ) {
         boardService.updateBoard(dto, updatefiles);
+    }
+
+    @PostMapping("/board/delete")
+    public int deleteBoard(@RequestBody BoardFileDTO dto) {
+        return boardService.deleteBoard((dto));
     }
 
     @GetMapping("/board/list")

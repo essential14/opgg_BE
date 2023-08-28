@@ -9,8 +9,10 @@ public interface BoardService {
 
 
     public void insertBoard(BoardFileDTO dto, MultipartFile[] uploadfiles) throws IOException;
-    public void updateBoard(BoardFileDTO dto, MultipartFile[] updatefiles) throws IOException;
+    public void updateBoard(BoardFileDTO dto, MultipartFile[] updatefiles);
+    public int deleteBoard(BoardFileDTO dto);
     public List<BoardFileDTO> getBoardList();
     public BoardFileDTO getBoardDetail(int bno);
+
 
 }
