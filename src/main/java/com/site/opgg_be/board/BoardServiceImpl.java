@@ -37,7 +37,8 @@ public class BoardServiceImpl implements BoardService {
                 for (MultipartFile file : uploadfiles) {
                     if (!file.isEmpty()) {
                         String originalFilename = file.getOriginalFilename();
-                        String storedFilename = UUID.randomUUID().toString().replaceAll("-", "");
+                        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                        String storedFilename = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension; // UUID와 확장자 결합
                         File storedFile = new File(storedFilename);
                         file.transferTo(storedFile);
 
@@ -46,7 +47,6 @@ public class BoardServiceImpl implements BoardService {
                         files.setStored_file(storedFilename); // 저장된 파일 이름
                         files.setGroup_file(group_file); // 파일 그룹 설정
                         mapper.insertFile(files);
-
                     }
                 }
             }
@@ -67,13 +67,13 @@ public class BoardServiceImpl implements BoardService {
             int group_file = (dto.getGroup_file() == 0) ? createNewFileGroup() : oldGroupFile;
             BoardEntity board = dto.toBoard();
 
-
             // 파일 업로드 처리
             if (updatefiles != null && updatefiles.length > 0) {
                 for (MultipartFile file : updatefiles) {
                     if (!file.isEmpty()) {
                         String originalFilename = file.getOriginalFilename();
-                        String storedFilename = UUID.randomUUID().toString().replaceAll("-", "");
+                        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".")); // 파일 확장자 가져오기
+                        String storedFilename = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension; // UUID와 확장자 결합
                         File storedFile = new File(storedFilename);
                         file.transferTo(storedFile);
 

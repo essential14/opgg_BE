@@ -2,7 +2,6 @@ package com.site.opgg_be.board;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -56,7 +55,6 @@ public class BoardFileDTO {
         this.setCreated_date(board.getCreated_date());
         this.setUpdated_date(board.getUpdated_date());
         this.setGroup_file((board.getGroup_file()));
-
     }
 
     public void fromFile(FileEntity files) { // FileEntity 에서 Data 꺼내기

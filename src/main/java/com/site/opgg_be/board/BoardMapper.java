@@ -20,8 +20,11 @@ public interface BoardMapper {
     @Select("select * from board order by bno desc")
     public List<BoardFileDTO> getBoardList();
 
-    @Select("select * from files where group_file=#{group_file}") // group 으로 조회
+    @Select("select * from files where group_file=#{group_file}")
     List<FileEntity> getFilesByGroup(int group_file);
+
+    @Select("SELECT group_file FROM board WHERE bno = #{bno}")
+    int getGroupFileByBno(int bno);
 
     @Select("SELECT COALESCE(MAX(group_file), 0) FROM files")
     public int getMaxGroupFile();
@@ -34,9 +37,6 @@ public interface BoardMapper {
 
     @Select("select * from board where bno=#{bno}")
     public BoardEntity getBoard(int bno);
-
-    @Select("SELECT group_file FROM board WHERE bno = #{bno}")
-    int getGroupFileByBno(int bno);
 
     @Update("update board set viewcount=viewcount+1 where bno=#{bno}")
     void updateViewCount(int bno);
