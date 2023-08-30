@@ -10,5 +10,5 @@ public interface CommentService {
 
 //    public int deleteCommnet(CommentDTO dto);
 
-    public List<CommentDTO> getCommenList();
+    public List<CommentDTO> getCommenList(int bno);
 }

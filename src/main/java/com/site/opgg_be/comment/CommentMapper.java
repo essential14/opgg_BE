@@ -14,10 +14,14 @@ public interface CommentMapper {
     @Update("")
     public void updateComment(CommentDTO dto);
 
+    @Update("UPDATE comments SET group_cno = #{group_cno} WHERE cno = #{cno}")
+    void updateGroupCno(CommentEntity comment);
+    
     @Delete("")
     public int deleteCommnet(CommentDTO dto);
 
 
-    @Select("select * form comments")
-    public List<CommentDTO> getCommenList();
+    @Select("SELECT * FROM comments WHERE bno = #{bno} ORDER BY group_cno ASC, depth ASC, comment_date DESC;")
+    public List<CommentDTO> getCommenList(int bno);
+
 }

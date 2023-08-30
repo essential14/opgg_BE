@@ -25,9 +25,9 @@ public class CommentController {
         return 0;
     }
 
-    @GetMapping("/comment/list")
-    public List<CommentDTO> getCommentList() {
-      List<CommentDTO> commen = commentService.getCommenList();
+    @GetMapping("/comment/{bno}")
+    public List<CommentDTO> getCommentList(@PathVariable int bno) {
+      List<CommentDTO> commen = commentService.getCommenList(bno);
         return commen;
     }
 }
