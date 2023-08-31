@@ -24,4 +24,6 @@ public class CommentEntity {
     private String id;
     private int depth;
     private String comment_date;
+    private int order_cno;
+
 }
