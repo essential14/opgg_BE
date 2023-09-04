@@ -8,8 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +16,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Value("${spring.servlet.multipart.location}") // 설정 파일 정보 읽어올 때 사용
     String uploadDir;
-    
+
     private final BoardMapper mapper;
 
     public BoardServiceImpl(BoardMapper mapper) {
@@ -107,7 +105,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     private int createNewFileGroup() { // 그룹 번호
-        return mapper.getMaxGroupFile() + 1;
+            Integer maxGroupFile = mapper.getMaxGroupFile();
+            if(maxGroupFile == null) {
+                return 1;
+            } else {
+                return maxGroupFile + 1;
+            }
     }
 
     public int deleteBoard(BoardFileDTO dto) { // 글 삭제

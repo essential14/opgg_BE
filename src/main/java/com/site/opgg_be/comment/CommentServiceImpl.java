@@ -1,7 +1,6 @@
 package com.site.opgg_be.comment;
 
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,14 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
     private void handleReply(CommentEntity comment) {
         comment.setDepth(comment.getDepth() + 1);
-
-        // 부모 댓글의 바로 다음 order_cno 값을 찾기
-        int nextOrderCno = mapper.getOrderCno(comment.getCno()) + 1;
-
-        // nextOrderCno 값과 동일하거나 큰 order_cno를 가진 모든 댓글의 order_cno 값을 1씩 증가
-        mapper.upOrderCno(comment.getBno(), nextOrderCno);
-
-        comment.setOrder_cno(nextOrderCno);
+        comment.setOrder_cno(comment.getOrder_cno()+1);
         comment.setParent_cno(comment.getCno());
         comment.setGroup_cno(comment.getGroup_cno());
         mapper.insertComment(comment);
@@ -55,14 +47,20 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public void updateComment(CommentDTO dto) {
+    public int updateComment(CommentDTO dto) {
+        CommentEntity comment = dto.toComment();
+        comment.setCno(comment.getCno());
+        comment.setContent(comment.getContent());
+       return mapper.updateComment(comment);
     }
 
-//    @Override
-//    public int deleteCommnet(CommentDTO dto) {
-//        int res = mapper.deleteCommnet(dto.getGroup_cno());
-//        return res;
-//    }
+    @Override
+    public int deleteComment(CommentDTO dto) {
+        CommentEntity comment = dto.toComment();
+        comment.setCno(comment.getCno());
+        return mapper.deleteComment(comment);
+
+    }
 
     @Override
     public List<CommentDTO> getCommenList(int bno) {

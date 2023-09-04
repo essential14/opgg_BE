@@ -1,6 +1,5 @@
 package com.site.opgg_be.comment;
 
-import com.site.opgg_be.board.BoardService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +17,19 @@ public class CommentController {
         return commentService.insertComment(dto);
     }
 
-    public void updateComment(CommentDTO dto) {
-    }
-
-    public int deleteCommnet(CommentDTO dto) {
-        return 0;
-    }
-
     @GetMapping("/comment/{bno}")
     public List<CommentDTO> getCommentList(@PathVariable int bno) {
-      List<CommentDTO> commen = commentService.getCommenList(bno);
+        List<CommentDTO> commen = commentService.getCommenList(bno);
         return commen;
+    }
+
+    @PostMapping("/comment/update")
+    public int updateComment(@RequestBody CommentDTO dto) {
+        return commentService.updateComment(dto);
+    }
+
+    @PostMapping("/comment/delete")
+    public int deleteComment(@RequestBody CommentDTO dto) {
+        return commentService.deleteComment(dto);
     }
 }

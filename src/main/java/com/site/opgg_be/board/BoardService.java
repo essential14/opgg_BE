@@ -14,5 +14,4 @@ public interface BoardService {
     public List<BoardFileDTO> getBoardList();
     public BoardFileDTO getBoardDetail(int bno);
 
-
 }

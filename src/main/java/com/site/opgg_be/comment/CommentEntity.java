@@ -1,6 +1,8 @@
 package com.site.opgg_be.comment;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //    CREATE TABLE comments (
 //    cno INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,12 +20,12 @@ import lombok.*;
 public class CommentEntity {
     private int cno;
     private int bno;
-    private int Group_cno;
     private int parent_cno;
     private String content;
     private String id;
     private int depth;
-    private String comment_date;
+    private String created_date;
     private int order_cno;
+    private int group_cno;
 
 }

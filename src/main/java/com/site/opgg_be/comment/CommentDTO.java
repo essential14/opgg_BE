@@ -13,9 +13,9 @@ public class CommentDTO {
     private String content;
     private String id;
     private int depth;
-    private String comment_date;
-    private int group_cno;
+    private String created_date;
     private int order_cno;
+    private int group_cno;
 
     public CommentEntity toComment() { // CommentEntity 에 Data 넣기
         CommentEntity comment = new CommentEntity();
@@ -26,7 +26,7 @@ public class CommentDTO {
         comment.setContent(this.getContent());
         comment.setId(this.getId());
         comment.setDepth(this.getDepth());
-        comment.setComment_date(this.getComment_date());
+        comment.setCreated_date(this.getCreated_date());
         comment.setOrder_cno(this.getOrder_cno());
         return comment;
     }
@@ -38,7 +38,7 @@ public class CommentDTO {
         this.setContent(comment.getContent());
         this.setId(comment.getId());
         this.setDepth(comment.getDepth());
-        this.setComment_date(comment.getComment_date());
+        this.setCreated_date(comment.getCreated_date());
         this.setOrder_cno(comment.getOrder_cno());
     }
 }
