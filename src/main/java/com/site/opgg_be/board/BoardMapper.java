@@ -18,8 +18,19 @@ public interface BoardMapper {
     @Update("update board set title=#{title}, content=#{content}, group_file=#{group_file}, updated_date=sysdate where bno=#{bno}")
     public void updateBoard(BoardEntity board);
 
-    @Select("select * from board order by bno desc")
-    public List<BoardFileDTO> getBoardList();
+    @Select("SELECT * FROM ( " +
+            "   SELECT a.*, ROWNUM rnum " +
+            "   FROM ( " +
+            "       SELECT * " +
+            "       FROM board " +
+            "       ORDER BY ${sort_by} ${order} " +
+            "   ) a " +
+            "   WHERE ROWNUM <= #{end_row} " +
+            ") WHERE rnum >= #{start_row}")
+    public List<BoardFileDTO> getBoardList(Pagination pagination);
+
+    @Select("Select count(*) from board")
+    public int getTotalCount();
 
     @Select("select * from files where group_file=#{group_file}")
     List<FileEntity> getFilesByGroup(int group_file);

@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -138,9 +136,21 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
-    @Override
-    public List<BoardFileDTO> getBoardList() { // 글 목록 조회
-        return mapper.getBoardList();
+    public BoardPagingDTO getBoardList(Pagination pagination) {
+        BoardPagingDTO pg = new BoardPagingDTO();
+
+        // 게시글 목록 조회
+        List<BoardFileDTO> lists = mapper.getBoardList(pagination);
+        pg.setLists(lists);
+
+        // 페이징 데이터
+        int totalCount = mapper.getTotalCount();
+        pagination.setTotalPages(totalCount);
+        pagination.setCurrent_page(pagination.getCurrent_page());
+
+        pg.setPagination(pagination);
+
+        return pg;
     }
 
     @Override
