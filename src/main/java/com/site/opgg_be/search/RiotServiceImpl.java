@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class RiotServiceImpl implements RiotService {
     @Value("${riot.api-key}")
     private String API_KEY;
 
-    private WebClient webClient;
+    private final WebClient webClient;
 
     @Override
     public List<RiotDTO> getSummonerMatchData(String summonerName) {
@@ -34,17 +33,16 @@ public class RiotServiceImpl implements RiotService {
 
     @Override
     public String getPuuid(String summonerName) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/lol/summoner/v4/summoners/by-name/{summonerName}?")
-                .queryParam("api_key", API_KEY);
+        String path = "/lol/summoner/v4/summoners/by-name/{summonerName}";
 
         JsonNode node = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path(((UriComponentsBuilder) builder).toUriString())
+                .uri(uriBuilder -> uriBuilder
+                        .path(path)
+                        .queryParam("api_key", API_KEY)
                         .build(summonerName))
                 .retrieve()
                 .bodyToMono(JsonNode.class)
                 .block();
-
-        System.out.println(node.toString());
 
         return node.path("puuid").asText();
     }
@@ -78,7 +76,7 @@ public class RiotServiceImpl implements RiotService {
             for (JsonNode playerNode : participants) { // 이름으로 나누기
                 String summonerName = playerNode.path("summonerName").asText();
 
-                if (targetSummonerName.trim().equals(summonerName.trim())) {
+                if (targetSummonerName.equalsIgnoreCase(summonerName)) {
 
                     RiotDTO matchData = new RiotDTO();
 
@@ -89,11 +87,11 @@ public class RiotServiceImpl implements RiotService {
                     matchData.setAssist(playerNode.path("assists").asInt());
 
                     matchDataList.add(matchData);
+
                     break;
                 }
             }
         }
-
         return matchDataList;
     }
 
